@@ -1,36 +1,25 @@
 #include <unistd.h>
 
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
-	char *s1 = argv[1];
-	char *s2 = argv[2];
 	int i;
 	int j;
+	int	z[255];
 
-	if (argc == 3)
+	if (ac == 3)
 	{
 		i = 0;
-		while (s1[i])
+		while (av[1][i])
 		{
 			j = 0;
-			while (s1[j])
+			while (av[2][j])
 			{
-				if (s1[i] == s1[j])
-					break;
-				j++;
-			}
-			if (j == i)
-			{
-				j = 0;
-				while (s2[j])
+				if(av[1][i] == av[2][j] && z[(int)av[1][i]] == 0)
 				{
-					if (s2[j] == s1[i])
-					{
-						write(1, &s1[i], 1);
-						break;
-					}
-					j++;
+					write(1, &av[1][i], 1);
+					z[(int)av[1][i]] = 1;
 				}
+				j++;
 			}
 			i++;
 		}
@@ -38,3 +27,38 @@ int main(int argc, char **argv)
 	write(1, "\n", 1);
 	return (0);
 }
+
+// int  main(int ac, char **av)
+// {
+// 	int i, j, c;
+
+// 	if (ac == 3)
+// 	{
+// 		i = 0;
+// 		while (av[1][i])
+// 		{
+// 			j = 0;
+// 			while (av[2][j])
+// 			{
+// 				if (av[1][i] == av[2][j])
+// 				{
+// 					c = 0;
+// 					while (c < i)
+// 					{
+// 						if (av[1][i] == av[1][c])
+// 							break ;
+// 						c++;
+// 					}
+// 					if (i != c && av[1][i] == av[1][c])
+// 							break ;
+// 					write (1, &av[1][i], 1);
+// 					break ;
+// 				}
+// 				j++;
+// 			}
+// 			i++;
+// 		}
+// 	}
+// 	write(1, "\n", 1);
+// 	return (0);
+// }

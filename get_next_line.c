@@ -1,55 +1,52 @@
-#include "get_next_line.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-int ft_strlen(char *n)
+int	get_next_line(char **line)
 {
-	int i = 0;
+	int		i;
+	int		l;
+	int		r;
+	char	c;
+	char	*tmp;
 
-	while (n[i] != '\0')
-		i++;
-	return (i);
+	r = 0;
+	l = 1;
+	if (!(*line = malloc(l)))
+		return (-1);
+	(*line)[0] = 0;
+	while ((r = read(0, &c, 1)) && l++ && c != '\n')
+	{
+		if (!(tmp = malloc(l)))
+		{
+			free(*line);
+			return (-1);
+		}
+		i = -1;
+		while (++i < l - 2)
+			tmp[i] = (*line)[i];
+		tmp[i] = c;
+		tmp[i + 1] = 0;
+		free(*line);
+		*line = tmp;     
+	}
+	return (r);
 }
 
-char *ft_strjoin(char *s1, char *s2)
+int main()
 {
-	char *s3;
-	int i;
-	int j;
+	char *line;
+	int r;
 
-
-	s3 = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	i = 0;
-	while (s1[i])
+	line = NULL;
+	while ((r = get_next_line(&line) > 0))
 	{
-		s3[i] = s1[i];
-		i++;
+		printf("%s\n", line);
+		free(line);
+		line = NULL;
 	}
-	j = 0;
-	while (s2[j])
-	{
-		s3[i] = s2[j];
-		j++;
-		i++;
-	}
-	s3[i] = '\0';
-	return (s3);
-}
-
-int get_next_line(char **line)
-{
-	char buf[2];
-	char *tmp;
-	int ret;
-
-	*line = (char *)malloc(1);
-	**line = '\0';
-	while ((ret = read(0, &buf, 1)) > 0)
-	{
-		buf[1] = '\0';
-		if (*buf == '\n')
-			return (1);
-		tmp = *line;
-		*line = ft_strjoin(*line, buf);
-		free(tmp);
-	}
-	return (ret);
+	printf("%s", line);
+	free(line);
+	line = NULL;
+	return (0);
 }
