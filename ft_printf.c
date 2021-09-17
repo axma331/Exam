@@ -1,17 +1,17 @@
 #include <stdarg.h>
 #include <unistd.h>
-​
+
 int	c, wdh, prc;
 char *pfx;
-​
+
 int snlen(char *s, int n) {
 	char *p = s;
-	for (; n && s && *s; n--)
+	while (n-- && s && *s)
 		s++;
 	return s - p;
 }
 void putchn(char ch, int n) {
-	for (; n > 0; n--)
+	while (n-- > 0)
 		c += write(1, &ch, 1);
 }
 void putmem(char *p, int n) {
@@ -23,6 +23,7 @@ void putu(unsigned n, char b) {
 		c += write(1, &"0123456789abcdef"[n % b], 1);
 	}
 }
+
 void prn_s(char *s) {
 	prc = snlen(s, prc);
 	putchn(' ', wdh - prc);
@@ -65,6 +66,7 @@ int prnf(const char *s, va_list *pap) {
 	}
 	return ++s - p;
 }
+
 int ft_printf(const char *s, ...) {
 	va_list ap;
 	va_start(ap, s);

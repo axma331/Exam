@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 int	get_next_line(char **line)
 {
@@ -33,6 +32,7 @@ int	get_next_line(char **line)
 	return (r);
 }
 
+#include <stdio.h>
 int main()
 {
 	char *line;
