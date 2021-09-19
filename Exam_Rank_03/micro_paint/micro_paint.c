@@ -6,8 +6,7 @@
 #define ERR1 "Error: argument\n"
 #define ERR2 "Error: Operation file corrupted\n"
 
-int ft_error(char *s)
-{
+int ft_error(char *s) {
 	int i = 0;
 	while (s[i])
 		i++;
@@ -15,8 +14,7 @@ int ft_error(char *s)
 	return (1);
 }
 
-int	check_pos(float x, float y, float id_x, float id_y, float width, float height)
-{
+int	check_pos(float x, float y, float id_x, float id_y, float width, float height) {
 	if (x < id_x || x > id_x + width || y < id_y || y > id_y + height)
 		return (0);
 	else if (x - id_x < 1.0 || (id_x + width) - x < 1.0 ||
@@ -25,8 +23,7 @@ int	check_pos(float x, float y, float id_x, float id_y, float width, float heigh
 	return (2);
 }
 
-int	main(int ac, char **av)
-{
+int	main(int ac, char **av) {
 	FILE	*file;
 	char	*canvas;
 	int		read, pos;
@@ -46,30 +43,21 @@ int	main(int ac, char **av)
 		(!(canvas = (char *)malloc(sizeof(char) * (b_width * b_height)))))
 		return (ft_error(ERR2));
 	memset(canvas, background, b_width * b_height);
-	while ((read = fscanf(file, "%c %f %f %f %f %c\n", &id, &id_x, &id_y, &width, &height, &color)) == 6)
-	{
+	while ((read = fscanf(file, "%c %f %f %f %f %c\n", &id, &id_x, &id_y, &width, &height, &color)) == 6) {
 		if (!(width > 0 && height > 0) || !(id == 'R' || id == 'r'))
 			break ;
-		y = -1;
-		while (++y < b_height)
-		{
-			x = -1;
-			while (++x < b_width)
-			{
+		for (y = 0; y < b_height; y++)
+			for (x = 0; x < b_width; x++) {
 				pos = check_pos((float)x, (float)y, id_x, id_y, width, height);
 				if (pos == 1 || (pos == 2 && id == 'R'))
 					canvas[y * b_width + x] = color;
 			}
-		}
 	}
-	if (read != -1)
-	{
+	if (read != -1)	{
 		free(canvas);
 		return (ft_error(ERR2));
 	}
-	y = -1;
-	while (++y < b_height)
-	{
+	for (y = 0; y < b_height; y++) {
 		write(1, canvas + y * b_width, b_width);
 		write(1, "\n", 1);
 	}
