@@ -13,20 +13,19 @@ typedef struct	s_shape {
 	char	type;
 	float	x;
 	float	y;
-	float	radius;
 	char	color;
+	float	radius;
 }				t_shape;
 
-int	ft_strlen(char const *str) {
+int	ft_strlen(char const *s) {
 	int	i = 0;
 
-	while (str[i])
+	while (s[i])
 		i++;
 	return (i);
 }
 
 char	*get_zone(FILE *file, t_zone *zone) {
-	int		i = 0;
 	char	*tmp;
 
 	if (fscanf(file, "%d %d %c\n", &zone->width, &zone->height, &zone->background) != 3)
@@ -35,8 +34,8 @@ char	*get_zone(FILE *file, t_zone *zone) {
 		return (NULL);
 	if (!(tmp = (char*)malloc(sizeof(*tmp) * (zone->width * zone->height))))
 		return (NULL);
-	while (i < zone->width * zone->height)
-		tmp[i++] = zone->background;
+	for (int i = 0; i < zone->width * zone->height; i++)
+		tmp[i] = zone->background;
 	return (tmp);
 }
 
@@ -44,8 +43,7 @@ int	in_circle(float x, float y, t_shape *shape) {
 	float	distance;
 
 	distance = sqrtf(powf(x - shape->x, 2.) + powf(y - shape->y, 2.));
-	if (distance <= shape->radius)
-	{
+	if (distance <= shape->radius) {
 		if ((shape->radius - distance) < 1.00000000)
 			return (2);
 		return (1);
@@ -54,12 +52,12 @@ int	in_circle(float x, float y, t_shape *shape) {
 }
 
 void	draw_shape(t_zone *zone, char *drawing, t_shape *shape) {
-	int	x, y, is_it;
+	int	x, y, ret;
 
 	for (y = 0; y < zone->height; y++)
 		for (x = 0; x < zone->width; x++) {
-			is_it = in_circle((float)x, (float)y, shape);
-			if ((shape->type == 'c' && is_it == 2) || (shape->type == 'C' && is_it))
+			ret = in_circle((float)x, (float)y, shape);
+			if ((shape->type == 'c' && ret == 2) || (shape->type == 'C' && ret))
 				drawing[(y * zone->width) + x] = shape->color;
 		}
 }
@@ -85,19 +83,18 @@ void	draw_drawing(t_zone *zone, char *drawing) {
 	}
 }
 
-int	str_error(char const *str) {
-	if (str)
-		write(1, str, ft_strlen(str));
+int	str_error(char const *s) {
+	write(1, s, ft_strlen(s));
 	return (1);
 }
 
-int	clear_all(FILE *file, char *drawing, char const *str) {
+int	clear_all(FILE *file, char *drawing, char const *s) {
 	if (file)
 		fclose(file);
 	if (drawing)
 		free(drawing);
-	if (str)
-		str_error(str);
+	if (s)
+		str_error(s);
 	return (1);
 }
 

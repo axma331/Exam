@@ -12,14 +12,14 @@ typedef struct	s_shape {
 	char	type;
 	float	x;
 	float	y;
+	char	color;
 	float	width;
 	float	height;
-	char	color;
-	struct s_shape	*next;
 }				t_shape;
 
 int	ft_strlen(char const *s) {
 	int	i = 0;
+
 	while (s && s[i])
 		i++;
 	return (i);
@@ -59,12 +59,11 @@ int	get_zone(FILE *file, t_zone *zone) {
 
 char	*paint_background(t_zone *zone) {
 	char	*drawing;
-	int		i = 0;
 
 	if (!(drawing = (char*)malloc(sizeof(*drawing) * (zone->width * zone->height))))
 		return (NULL);
-	while (i < zone->width * zone->height)
-		drawing[i++] = zone->background;
+	for (int i = 0; i < zone->width * zone->height; i++)
+		drawing[i] = zone->background;
 	return (drawing);
 }
 
