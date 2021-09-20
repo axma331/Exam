@@ -9,7 +9,7 @@ int ft_error(char *s) {
 }
 
 int	check_pos(float x, float y, float id_x, float id_y, float width, float height) {
-	if (x < id_x || x > id_x + width || y < id_y || y > id_y + height)
+	if (id_x + width < x || x < id_x || id_y + height < y || y < id_y)
 		return (0);
 	else if (x - id_x < 1.0 || (id_x + width) - x < 1.0 ||
 			y - id_y < 1.0|| (id_y + height) - y < 1.0)
@@ -31,14 +31,14 @@ int	main(int ac, char **av) {
 
 	if (ac != 2)
 		return (ft_error(ERR1));
-	if (!(file = fopen(av[1], "r")) ||
-			(fscanf(file, "%d %d %c\n", &b_width, &b_height, &background) != 3) ||
-		(!(b_width > 0 && b_width <= 300 && b_height > 0 && b_height <= 300)) || 
-		(!(canvas = (char *)malloc(sizeof(char) * (b_width * b_height)))))
+	if (!(file = fopen(av[1], "r"))
+		|| (fscanf(file, "%d %d %c\n", &b_width, &b_height, &background) != 3)
+		|| (!(0 < b_width && b_width <= 300 && 0 < b_height && b_height <= 300))
+		|| (!(canvas = (char *)malloc(sizeof(char) * (b_width * b_height)))))
 		return (ft_error(ERR2));
 	memset(canvas, background, b_width * b_height);
 	while ((read = fscanf(file, "%c %f %f %f %f %c\n", &id, &id_x, &id_y, &width, &height, &color)) == 6) {
-		if (!(width > 0 && height > 0) || !(id == 'R' || id == 'r'))
+		if (!(0 < width && 0 < height) || !(id == 'R' || id == 'r'))
 			break ;
 		for (y = 0; y < b_height; y++)
 			for (x = 0; x < b_width; x++) {
