@@ -1,10 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define ERR1 "Error: argument\n"
-#define ERR2 "Error: Operation file corrupted\n"
+#include "micro_paint.h"
 
 int ft_error(char *s) {
 	int i = 0;
