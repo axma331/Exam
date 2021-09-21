@@ -12,8 +12,8 @@ int	check_pos(float x, float y, float id_x, float id_y, float width, float heigh
 	if (id_x + width < x || x < id_x
 		|| id_y + height < y || y < id_y)
 		return (0);
-	else if (x - id_x < 1.0 || (id_x + width) - x < 1.0
-		|| y - id_y < 1.0 || (id_y + height) - y < 1.0)
+	else if ((id_x + width) - x < 1.0 || x - id_x < 1.0
+		|| (id_y + height) - y < 1.0 || y - id_y < 1.0)
 		return (1);
 	return (2);
 }
