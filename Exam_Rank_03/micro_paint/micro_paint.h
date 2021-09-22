@@ -8,4 +8,5 @@
 
 #define ERR1 "Error: argument\n"
 #define ERR2 "Error: Operation file corrupted\n"
+
 #endif

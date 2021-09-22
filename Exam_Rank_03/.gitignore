@@ -5,4 +5,4 @@ _mini_paint*
 _gen*
 example_*
 output
-coutput
+coutputmicro_paint/o_micro_paint.c micro_paint/o_micro_paint.h

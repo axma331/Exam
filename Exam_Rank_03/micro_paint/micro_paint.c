@@ -1,7 +1,7 @@
 #include "micro_paint.h"
 
-int ft_error(char *s) {
-	int i = 0;
+int	ft_error(char *s) {
+	int	i = 0;
 	while (s[i])
 		i++;
 	write(1, s, i);
@@ -33,13 +33,13 @@ int	main(int ac, char **av) {
 	if (ac != 2)
 		return (ft_error(ERR1));
 	if (!(file = fopen(av[1], "r"))
-		|| (fscanf(file, "%d %d %c\n", &b_width, &b_height, &background) != 3)
-		|| (!(0 < b_width && b_width <= 300 && 0 < b_height && b_height <= 300))
-		|| (!(canvas = (char *)malloc(sizeof(char) * (b_width * b_height)))))
+		|| fscanf(file, "%d %d %c\n", &b_width, &b_height, &background) != 3
+		|| !(0 < b_width && b_width <= 300 && 0 < b_height && b_height <= 300)
+		|| !(canvas = (char *)malloc(sizeof(char) * (b_width * b_height))))
 		return (ft_error(ERR2));
 	memset(canvas, background, b_width * b_height);
 	while ((read = fscanf(file, "%c %f %f %f %f %c\n", &id, &id_x, &id_y, &width, &height, &color)) == 6) {
-		if (!(0 < width && 0 < height) || !(id == 'R' || id == 'r'))
+		if (!(0 < width && 0 < height) || !(id == 'r' || id == 'R'))
 			break ;
 		for (y = 0; y < b_height; y++)
 			for (x = 0; x < b_width; x++) {
@@ -48,7 +48,7 @@ int	main(int ac, char **av) {
 					canvas[y * b_width + x] = color;
 			}
 	}
-	if (read != -1)	{
+	if (read != -1) {
 		free(canvas);
 		return (ft_error(ERR2));
 	}
