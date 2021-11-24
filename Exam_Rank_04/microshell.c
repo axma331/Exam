@@ -6,7 +6,7 @@
 
 int ft_strlen(const char *str) {
 	int i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
@@ -34,7 +34,7 @@ void exit_fatal(void) {
 
 void ft_cd(char **line) {
 	int i = 0;
-	while(line[i])
+	while (line[i])
 		i++;
 	if (i != 2) {
 		error_cd_bad_args();
@@ -53,19 +53,19 @@ int main(int ac, char **av, char **env) {
 	int opened = 0;
 	int status = 0;
 	pid_t pid;
-	char **line = NULL;		//аргументы без ; и | (т.е. это одна команда и его аргументы)
+	char **line = NULL;
 
 	while (ac > 1 && i < ac) {
-		if ((!strcmp(av[i], ";") || !strcmp(av[i], "|")) && i++)	//если тек аргумент ; или | пропускаем этот аргумент
+		if ((!strcmp(av[i], ";") || !strcmp(av[i], "|")) && i++)
 			continue ;
 		len = 0;
-		while (av[i + len] && strcmp(av[i + len], ";") && strcmp(av[i + len], "|"))	//кол-во аргументов до ; или | или до завершения аргументов
+		while (av[i + len] && strcmp(av[i + len], ";") && strcmp(av[i + len], "|"))
 			len++;
 		if (!(line = (char **)malloc(sizeof(char *) * (len + 1))))
 			exit_fatal();
 		line[len] = NULL;
 		j = 0;
-		while (j < len) {	//запись команды и его аргументов в line
+		while (j < len) {
 			line[j] = av[i];
 			if(!strcmp(av[i], "cd"))
 				f_cd = 1;
@@ -94,7 +94,7 @@ int main(int ac, char **av, char **env) {
 		if (pid < 0)
 			exit_fatal();
 		else if (!pid){
-			if(!f_cd)
+			if (!f_cd)
 				if (execve(line[0], line, env))
 					error_cannot_exec(line[0]);
 			exit(0);
