@@ -67,7 +67,7 @@ int main(int ac, char **av, char **env) {
 		j = 0;
 		while (j < len) {
 			line[j] = av[i];
-			if(!strcmp(av[i], "cd"))
+			if (!strcmp(av[i], "cd"))
 				f_cd = 1;
 			j++;
 			i++;
@@ -106,7 +106,7 @@ int main(int ac, char **av, char **env) {
 			close(fds[0]);
 			opened = 0;
 		}
-		if (f_pipe){
+		if (f_pipe) {
 			dup2(fds[1], 1);
 			close(fds[1]);
 			opened = 1;
