@@ -1,38 +1,38 @@
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int ft_strlen(const char *str) {
+int	ft_strlen(const char *str) {
 	int i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-void error_cd_bad_args(void) {
-	write(2, "error: cd: bad arguments\n", ft_strlen("error: cd: bad arguments\n"));
+void	exit_fatal(void) {
+	write(2, "error: fatal\n", ft_strlen("error: fatal\n"));
+	exit(1);
 }
 
-void error_cd_cannot_change(char *str) {
-	write(2, "error: cd: cannot change directory to ", ft_strlen("error: cd: cannot change directory to "));
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-}
-
-void error_cannot_exec(char *str) {
+void	error_cannot_exec(char *str) {
 	write(2, "error: cannot execute ", ft_strlen("error: cannot execute "));
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 }
 
-void exit_fatal(void) {
-	write(2, "error: fatal\n", ft_strlen("error: fatal\n"));
-	exit(1);
+void	error_cd_bad_args(void) {
+	write(2, "error: cd: bad arguments\n", ft_strlen("error: cd: bad arguments\n"));
 }
 
-void ft_cd(char **line) {
+void	error_cd_cannot_change(char *str) {
+	write(2, "error: cd: cannot change directory to ", ft_strlen("error: cd: cannot change directory to "));
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+}
+
+void	ft_cd(char **line) {
 	int i = 0;
 	while (line[i])
 		i++;
@@ -44,7 +44,7 @@ void ft_cd(char **line) {
 		error_cd_cannot_change(line[1]);
 }
 
-int main(int ac, char **av, char **env) {
+int	main(int ac, char **av, char **env) {
 	int i = 1;
 	int len, j;
 	int fd[2], fds[2];
@@ -93,7 +93,7 @@ int main(int ac, char **av, char **env) {
 		pid = fork();
 		if (pid < 0)
 			exit_fatal();
-		else if (!pid){
+		else if (!pid) {
 			if (!f_cd)
 				if (execve(line[0], line, env))
 					error_cannot_exec(line[0]);
