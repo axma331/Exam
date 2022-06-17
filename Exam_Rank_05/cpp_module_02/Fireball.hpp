@@ -7,5 +7,5 @@ public:
 	Fireball() : ASpell("Fireball", "burnt to a crisp") {}
 	~Fireball() {}
 
-	virtual ASpell *clone() const { return new Fireball(); }
+	virtual ASpell *clone() const {return new Fireball();}
 };

@@ -1,20 +1,16 @@
 #pragma once
-
 #include "ATarget.hpp"
 #include <map>
 
 class TargetGenerator {
-private:
-	std::map <std::string, ATarget *> map;
-
+	std::map <std::string, ATarget*> map;
 public:
 	TargetGenerator() {}
 	~TargetGenerator() {}
 
-	void learnTargetType(ATarget *target_ptr) {
-		map[target_ptr->getType()] = target_ptr;
+	void learnTargetType(ATarget *target) {
+		map[target->getType()] = target;
 	}
-
 	void forgetTargetType(std::string name) {
 		map.erase(name);
 	}

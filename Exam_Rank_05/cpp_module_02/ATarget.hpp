@@ -1,23 +1,16 @@
 #pragma once
-
 #include <iostream>
 #include "ASpell.hpp"
-
 class ASpell;
 
 class ATarget {
-private:
 	std::string _type;
-
 public:
-	ATarget() {};
-	ATarget(std::string type) { this->_type = type; }
-
+	ATarget(std::string type) : _type(type) {}
 	virtual ~ATarget() {}
 
-	std::string getType() { return this->_type; }
-
-	void getHitBySpell(ASpell &aspell_ref);
+	std::string	getType() {return _type;}
+	void		getHitBySpell(ASpell& spell);
 
 	virtual ATarget *clone() const = 0;
 };

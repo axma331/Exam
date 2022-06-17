@@ -7,5 +7,5 @@ public:
 	BrickWall() : ATarget("Inconspicuous Red-brick Wall") {}
 	~BrickWall() {}
 
-	virtual ATarget *clone() const { return new BrickWall(); }
+	virtual ATarget *clone() const {return new BrickWall();}
 };

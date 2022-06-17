@@ -10,13 +10,11 @@ private:
 	std::string _type;
 
 public:
-	ATarget(std::string type) { _type = type; }
-
+	ATarget(std::string type) : _type(type) {}
 	virtual ~ATarget() {}
 
-	std::string const getType() { return _type; }
-
-	void getHitBySpell(ASpell &aspell_ref);
+	const std::string	getType() {return _type;}
+	void				getHitBySpell(ASpell& spell);
 
 	virtual ATarget *clone() const = 0;
 };
