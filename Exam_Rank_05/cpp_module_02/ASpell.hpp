@@ -4,18 +4,15 @@
 class ATarget;
 
 class ASpell {
-	std::string _name;
-	std::string _effects;
-
+	std::string	_name;
+	std::string	_effects;
 public:
-	ASpell() {}
-	ASpell(std::string name, std::string effects) 
-		:_name(name), _effects(effects) {}
+	ASpell(const std::string& name, const std::string& effects) 
+		: _name(name), _effects(effects) {}
 	virtual ~ASpell() {}
-
 	std::string	getName() {return _name;}
 	std::string	getEffects() {return _effects;}
 	void		launch(ATarget& target);
-
-	virtual ASpell *clone() const = 0;
+	virtual ASpell*	clone() const = 0;
 };
+

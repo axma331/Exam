@@ -7,16 +7,13 @@ class SpellBook {
 public:
 	SpellBook() {}
 	~SpellBook() {}
-
-	void learnSpell(ASpell* spell) {
-		map[spell->getName()] = spell;
+	void	learnSpell(ASpell* spell) {
+			map[spell->getName()] = spell;
 	}
-	void forgetSpell(std::string name) {
+	void	forgetSpell(const std::string& name) {
 		map.erase(name);
 	}
-	ASpell* createSpell(std::string name) {
-		if (map[name] != 0)
-			return map[name];
-		return 0;
-	};
+	ASpell* createSpell(const std::string& name) {
+		return map[name] != 0 ? map[name]: 0;
+	}
 };

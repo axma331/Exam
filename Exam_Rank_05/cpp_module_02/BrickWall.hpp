@@ -1,11 +1,8 @@
 #pragma once
-
 #include "ATarget.hpp"
 
-class BrickWall: public ATarget {
-public:
+struct BrickWall : ATarget {
 	BrickWall() : ATarget("Inconspicuous Red-brick Wall") {}
 	~BrickWall() {}
-
-	virtual ATarget *clone() const {return new BrickWall();}
+	virtual ATarget*	clone() const {return new BrickWall();}
 };

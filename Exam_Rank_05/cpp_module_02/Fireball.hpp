@@ -1,11 +1,8 @@
 #pragma once
-
 #include "ASpell.hpp"
 
-class Fireball: public ASpell {
-public:
+struct Fireball: public ASpell {
 	Fireball() : ASpell("Fireball", "burnt to a crisp") {}
 	~Fireball() {}
-
-	virtual ASpell *clone() const {return new Fireball();}
+	virtual ASpell*	clone() const {return new Fireball();}
 };
