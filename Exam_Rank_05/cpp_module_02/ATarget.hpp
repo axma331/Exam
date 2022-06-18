@@ -6,6 +6,7 @@ class ASpell;
 class ATarget {
 	std::string _type;
 public:
+	ATarget() {}
 	ATarget(std::string type) : _type(type) {}
 	virtual ~ATarget() {}
 
