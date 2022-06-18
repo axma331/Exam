@@ -9,9 +9,7 @@ public:
 	ATarget() {}
 	ATarget(std::string type) : _type(type) {}
 	virtual ~ATarget() {}
-
-	std::string	getType() {return _type;}
-	void		getHitBySpell(ASpell& spell);
-
+	std::string		getType() {return _type;}
+	void			getHitBySpell(ASpell& spell);
 	virtual ATarget *clone() const = 0;
 };

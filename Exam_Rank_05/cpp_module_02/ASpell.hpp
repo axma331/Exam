@@ -11,9 +11,8 @@ public:
 	ASpell(const std::string& name, const std::string& effects) 
 		: _name(name), _effects(effects) {}
 	virtual ~ASpell() {}
-	std::string	getName() {return _name;}
-	std::string	getEffects() {return _effects;}
-	void		launch(ATarget& target);
+	std::string		getName() {return _name;}
+	std::string		getEffects() {return _effects;}
+	void			launch(ATarget& target);
 	virtual ASpell*	clone() const = 0;
 };
-
